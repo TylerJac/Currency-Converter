@@ -1,7 +1,8 @@
 // Fetch available currencies and populate dropdowns
-const apiKey = 'Your_API_Key';
+const apiKey = 'fca_live_7WvBofwghMKkVBQZsxFgblwDs6e4EqYuHiZig1fX';
 const apiURL = 'https://api.freecurrencyapi.com/v1/latest';
 
+// Function to convert currency and update the UI
 document.addEventListener('DOMContentLoaded', () => {
     fetchCurrencies();
     document.getElementById('amount').addEventListener('input', convertCurrency);
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-favorite').addEventListener('click', saveFavoritePair);
 });
 
+// Function to convert currency and update the UI with the currency values
 async function fetchCurrencies() {
     try {
         const response = await fetch(apiURL, {
@@ -25,6 +27,7 @@ async function fetchCurrencies() {
     }
 }
 
+// Function to view historical rates for a specific currency
 function populateCurrencyDropdowns(currencies) {
     const baseSelect = document.getElementById('base-currency');
     const targetSelect = document.getElementById('target-currency');
@@ -36,6 +39,7 @@ function populateCurrencyDropdowns(currencies) {
         targetSelect.appendChild(option.cloneNode(true));
     });
 }
+
 
 async function convertCurrency() {
     const baseCurrency = document.getElementById('base-currency').value;
@@ -78,9 +82,22 @@ async function viewHistoricalRates() {
                 'apikey': apiKey
             }
         });
+
+        // Check if the response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        const rate = data.data[targetCurrency];
-        document.getElementById('historical-rates-container').textContent = `Historical exchange rate on ${date}: 1 ${baseCurrency} = ${rate} ${targetCurrency}`;
+        console.log('Historical data:', data); // Log the response to see its structure
+
+        // Assuming the API response structure is { data: { [date]: { [currency]: rate } } }
+        const rate = data.data?.[date]?.[targetCurrency];
+        if (rate) {
+            document.getElementById('historical-rates-container').textContent = `Historical exchange rate on ${date}: 1 ${baseCurrency} = ${rate} ${targetCurrency}`;
+        } else {
+            document.getElementById('historical-rates-container').textContent = 'Rate not available for the selected date and currency.';
+        }
     } catch (error) {
         console.error('Error fetching historical exchange rate:', error);
         document.getElementById('historical-rates-container').textContent = 'Error fetching data';
