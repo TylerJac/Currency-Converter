@@ -47,6 +47,6 @@ app.get('/favorites', async (req, res) => {
 // Synchronize the Sequelize models with the database and start the server
 sequelize.sync().then(() => {
     app.listen(3000, () => {
-        console.log('Server running on http://localhost:3000'); // Log a message when the server is running
+        console.log('Server running on http://localhost:5500'); // Log a message when the server is running
     });
 });
