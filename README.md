@@ -18,3 +18,23 @@ This is a currency converter application built using JavaScript for the frontend
 - Database: Sequelize with SQLite
 - API: [FreeCurrencyAPI](https://freecurrencyapi.com/)
 
+## How to Run
+
+### Step 1: Build the Docker Image
+-Navigate to the project directory and run the following command to build the Docker image:
+
+```
+docker build -t currency-converter-app .
+```
+### Step 2: Run the Docker Container
+- Once the image is built, run the following command to start the container:
+
+```
+docker run -p 3000:3000 currency-converter-app
+```
+### Step 3: Access the Application
+- The application will be available at:
+
+```
+http://localhost:3000
+```
