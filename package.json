@@ -2,9 +2,9 @@
   "name": "currency-converter",
   "version": "1.0.0",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node dist/server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "currency-converter": "file:",
